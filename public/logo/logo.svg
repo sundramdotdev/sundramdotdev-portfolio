@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 40" fill="none">
+  <!-- SD Monogram -->
+  <g>
+    <rect x="0" y="4" width="32" height="32" rx="8" fill="#C88B3A"/>
+    <text x="16" y="26" text-anchor="middle" font-family="Inter Tight, Inter, system-ui, sans-serif" font-weight="700" font-size="16" fill="#0F0F10" letter-spacing="-0.5">SD</text>
+  </g>
+  <!-- Wordmark -->
+  <text x="42" y="27" font-family="Inter Tight, Inter, system-ui, sans-serif" font-weight="600" font-size="18" fill="#F4F4F2" letter-spacing="-0.3">
+    sundram<tspan fill="#C88B3A">.</tspan>dev
+  </text>
+</svg>
