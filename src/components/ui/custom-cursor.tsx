@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, useSpring, useMotionValue } from "motion/react";
 
 type CursorVariant = "default" | "button" | "image" | "link" | "hidden";
@@ -8,7 +8,15 @@ type CursorVariant = "default" | "button" | "image" | "link" | "hidden";
 export function CustomCursor() {
   const [variant, setVariant] = useState<CursorVariant>("default");
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null); // Start as null to avoid hydrating heavy elements on mobile
+
+  useEffect(() => {
+    // Detect touch devices
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    
+    setIsTouchDevice(isTouch || prefersReducedMotion);
+  }, []);
 
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
@@ -23,6 +31,9 @@ export function CustomCursor() {
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
+      // Don't update if document is hidden to save CPU
+      if (document.hidden) return;
+      
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
       if (!isVisible) setIsVisible(true);
@@ -30,30 +41,22 @@ export function CustomCursor() {
     [cursorX, cursorY, isVisible]
   );
 
-  const handleMouseLeave = useCallback(() => {
-    setIsVisible(false);
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    setIsVisible(true);
-  }, []);
+  const handleMouseLeave = useCallback(() => setIsVisible(false), []);
+  const handleMouseEnter = useCallback(() => setIsVisible(true), []);
 
   useEffect(() => {
-    // Detect touch devices
-    const isTouch =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0;
-    setIsTouchDevice(isTouch);
+    if (isTouchDevice === null || isTouchDevice) return;
 
-    if (isTouch) return;
-
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseenter", handleMouseEnter);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    document.addEventListener("mouseenter", handleMouseEnter, { passive: true });
 
     // Observe interactive elements for variant changes
+    let timeoutId: NodeJS.Timeout;
     const observer = new MutationObserver(() => {
-      setupHoverListeners();
+      // Debounce listener setup to avoid excessive DOM queries
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(setupHoverListeners, 100);
     });
 
     observer.observe(document.body, {
@@ -68,36 +71,51 @@ export function CustomCursor() {
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
       observer.disconnect();
+      clearTimeout(timeoutId);
     };
-  }, [handleMouseMove, handleMouseLeave, handleMouseEnter]);
+  }, [isTouchDevice, handleMouseMove, handleMouseLeave, handleMouseEnter]);
 
   function setupHoverListeners() {
     // Buttons
     document.querySelectorAll("button, .btn-primary, .btn-secondary").forEach((el) => {
-      el.addEventListener("mouseenter", () => setVariant("button"));
-      el.addEventListener("mouseleave", () => setVariant("default"));
+      // Remove old listeners to prevent duplicates
+      el.removeEventListener("mouseenter", () => setVariant("button"));
+      el.removeEventListener("mouseleave", () => setVariant("default"));
+      
+      el.addEventListener("mouseenter", () => setVariant("button"), { passive: true });
+      el.addEventListener("mouseleave", () => setVariant("default"), { passive: true });
     });
 
     // Links (not buttons)
     document.querySelectorAll("a:not(button)").forEach((el) => {
-      el.addEventListener("mouseenter", () => setVariant("link"));
-      el.addEventListener("mouseleave", () => setVariant("default"));
+      el.removeEventListener("mouseenter", () => setVariant("link"));
+      el.removeEventListener("mouseleave", () => setVariant("default"));
+      
+      el.addEventListener("mouseenter", () => setVariant("link"), { passive: true });
+      el.addEventListener("mouseleave", () => setVariant("default"), { passive: true });
     });
 
     // Images
     document.querySelectorAll("img, video, canvas").forEach((el) => {
-      el.addEventListener("mouseenter", () => setVariant("image"));
-      el.addEventListener("mouseleave", () => setVariant("default"));
+      el.removeEventListener("mouseenter", () => setVariant("image"));
+      el.removeEventListener("mouseleave", () => setVariant("default"));
+
+      el.addEventListener("mouseenter", () => setVariant("image"), { passive: true });
+      el.addEventListener("mouseleave", () => setVariant("default"), { passive: true });
     });
 
     // Inputs — hide custom cursor
     document.querySelectorAll("input, textarea, select, [contenteditable]").forEach((el) => {
-      el.addEventListener("mouseenter", () => setVariant("hidden"));
-      el.addEventListener("mouseleave", () => setVariant("default"));
+      el.removeEventListener("mouseenter", () => setVariant("hidden"));
+      el.removeEventListener("mouseleave", () => setVariant("default"));
+
+      el.addEventListener("mouseenter", () => setVariant("hidden"), { passive: true });
+      el.addEventListener("mouseleave", () => setVariant("default"), { passive: true });
     });
   }
 
-  if (isTouchDevice) return null;
+  // If still checking or is touch device, do not render heavy motion components
+  if (isTouchDevice === null || isTouchDevice) return null;
 
   const ringSize =
     variant === "button" ? 46 : variant === "image" ? 40 : variant === "link" ? 0 : 22;
@@ -105,7 +123,6 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* Hide default cursor globally */}
       <style jsx global>{`
         * {
           cursor: none !important;

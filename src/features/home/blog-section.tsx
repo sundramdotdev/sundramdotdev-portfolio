@@ -1,10 +1,7 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
-import { useInView } from "@/hooks/use-in-view";
 import { SectionHeader } from "@/components/ui/section-header";
 import { ArrowRight, ArrowUpRight, Clock } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const latestPosts = [
   {
@@ -37,8 +34,6 @@ const latestPosts = [
 ];
 
 export function BlogSection() {
-  const [ref, isInView] = useInView<HTMLDivElement>();
-
   return (
     <section className="py-16 md:py-24 lg:py-32 mx-auto max-w-[var(--content-max-width)] px-6 md:px-10 lg:px-16">
       <SectionHeader
@@ -47,17 +42,13 @@ export function BlogSection() {
         description="Thoughts on mobile development, product building, and the business of software."
       />
 
-      <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {latestPosts.map((post, index) => (
-          <motion.div
+          <ScrollReveal
             key={post.slug}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{
-              duration: 0.6,
-              delay: index * 0.08,
-              ease: [0.16, 1, 0.3, 1],
-            }}
+            delay={index * 0.08}
+            y={20}
+            duration={0.6}
           >
             <Link
               href={`/blog/${post.slug}`}
@@ -95,16 +86,11 @@ export function BlogSection() {
                 />
               </div>
             </Link>
-          </motion.div>
+          </ScrollReveal>
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.4 }}
-        className="mt-10 text-center"
-      >
+      <ScrollReveal delay={0.4} y={0} className="mt-10 text-center">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-caption font-medium text-accent-bronze hover:text-accent-bronze-hover transition-colors"
@@ -112,7 +98,7 @@ export function BlogSection() {
           Read All Articles
           <ArrowRight size={14} />
         </Link>
-      </motion.div>
+      </ScrollReveal>
     </section>
   );
 }

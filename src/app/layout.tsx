@@ -3,8 +3,7 @@ import { geistSans, geistMono, inter, ibmPlexMono } from "@/lib/fonts";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
-import { CustomCursor } from "@/components/ui/custom-cursor";
-import { LenisProvider } from "@/components/ui/lenis-provider";
+import { ClientProviders } from "@/components/ui/client-providers";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { siteConfig, keywords } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next";
@@ -123,16 +122,15 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
-        <LenisProvider>
+        <ClientProviders>
           <LoadingScreen />
           <ScrollProgress />
-          <CustomCursor />
           <Navbar />
           <main className="flex-1" style={{ paddingTop: "var(--nav-height)" }}>
             {children}
           </main>
           <Footer />
-        </LenisProvider>
+        </ClientProviders>
         <Analytics />
         <SpeedInsights />
       </body>

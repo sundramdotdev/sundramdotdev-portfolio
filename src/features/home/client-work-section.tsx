@@ -1,10 +1,7 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
-import { useInView } from "@/hooks/use-in-view";
 import { SectionHeader } from "@/components/ui/section-header";
 import { ArrowUpRight } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const clientProjects = [
   {
@@ -40,8 +37,6 @@ const clientProjects = [
 ];
 
 export function ClientWorkSection() {
-  const [ref, isInView] = useInView<HTMLDivElement>();
-
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-bg-surface/20">
       <div className="mx-auto max-w-[var(--content-max-width)] px-6 md:px-10 lg:px-16">
@@ -51,17 +46,13 @@ export function ClientWorkSection() {
           description="Real projects solving real business problems. Professional case studies from client engagements."
         />
 
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {clientProjects.map((project, index) => (
-            <motion.div
+            <ScrollReveal
               key={project.slug}
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.7,
-                delay: index * 0.1,
-                ease: [0.16, 1, 0.3, 1],
-              }}
+              delay={index * 0.1}
+              y={24}
+              duration={0.7}
             >
               <Link
                 href={`/client-work/${project.slug}`}
@@ -116,7 +107,7 @@ export function ClientWorkSection() {
                   </p>
                 </div>
               </Link>
-            </motion.div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

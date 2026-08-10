@@ -1,9 +1,6 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
-import { useInView } from "@/hooks/use-in-view";
 import { ArrowRight } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const principles = [
   {
@@ -25,17 +22,11 @@ const principles = [
 ];
 
 export function MeetSection() {
-  const [ref, isInView] = useInView<HTMLDivElement>({ threshold: 0.2 });
-
   return (
     <section className="py-16 md:py-24 lg:py-32 mx-auto max-w-[var(--content-max-width)] px-6 md:px-10 lg:px-16">
-      <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         {/* Left — Introduction */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <ScrollReveal y={24} duration={0.7}>
           <span className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-accent-bronze mb-4">
             About
           </span>
@@ -66,29 +57,22 @@ export function MeetSection() {
               <ArrowRight size={14} />
             </Link>
           </div>
-        </motion.div>
+        </ScrollReveal>
 
         {/* Right — Principles */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <ScrollReveal y={24} duration={0.7} delay={0.15}>
           <span className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-text-faint mb-6">
             Engineering Principles
           </span>
 
           <div className="space-y-6">
             {principles.map((principle, index) => (
-              <motion.div
+              <ScrollReveal
                 key={principle.title}
-                initial={{ opacity: 0, x: 16 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.2 + index * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
+                y={0}
+                x={16}
+                duration={0.6}
+                delay={0.2 + index * 0.08}
                 className="flex gap-4 p-4 rounded-[14px] border border-border-subtle bg-bg-surface/50"
               >
                 <div className="flex-shrink-0 w-8 h-8 rounded-[10px] bg-accent-bronze/10 flex items-center justify-center">
@@ -104,10 +88,10 @@ export function MeetSection() {
                     {principle.description}
                   </p>
                 </div>
-              </motion.div>
+              </ScrollReveal>
             ))}
           </div>
-        </motion.div>
+        </ScrollReveal>
       </div>
     </section>
   );

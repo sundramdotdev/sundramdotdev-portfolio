@@ -1,10 +1,7 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
-import { useInView } from "@/hooks/use-in-view";
 import { SectionHeader } from "@/components/ui/section-header";
 import { ArrowRight } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const featuredProjects = [
   {
@@ -84,13 +81,7 @@ export function FeaturedProjectsSection() {
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        className="mt-16 text-center"
-      >
+      <ScrollReveal delay={0.3} y={0} className="mt-16 text-center">
         <Link
           href="/projects"
           className="inline-flex items-center gap-2 text-caption font-medium text-accent-bronze hover:text-accent-bronze-hover transition-colors"
@@ -98,7 +89,7 @@ export function FeaturedProjectsSection() {
           View All Products
           <ArrowRight size={14} />
         </Link>
-      </motion.div>
+      </ScrollReveal>
     </section>
   );
 }
@@ -110,10 +101,8 @@ function ProjectShowcase({
   project: (typeof featuredProjects)[number];
   reverse: boolean;
 }) {
-  const [ref, isInView] = useInView<HTMLDivElement>({ threshold: 0.15 });
-
   return (
-    <div ref={ref}>
+    <div>
       <Link href={`/projects/${project.slug}`} className="group block">
         <div
           className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
@@ -122,12 +111,7 @@ function ProjectShowcase({
           style={{ direction: reverse ? "rtl" : "ltr" }}
         >
           {/* Image / Mockup area */}
-          <motion.div
-            initial={{ opacity: 0, x: reverse ? 40 : -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            style={{ direction: "ltr" }}
-          >
+          <ScrollReveal x={reverse ? 40 : -40} duration={0.8} style={{ direction: "ltr" }}>
             <div
               className="relative aspect-[4/3] rounded-[18px] border border-border-subtle overflow-hidden group-hover:-translate-y-1 transition-transform duration-500"
               style={{ backgroundColor: `${project.accent}08` }}
@@ -152,15 +136,10 @@ function ProjectShowcase({
               {/* Grid overlay */}
               <div className="absolute inset-0 bg-grid-dense opacity-20" />
             </div>
-          </motion.div>
+          </ScrollReveal>
 
           {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: reverse ? -40 : 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            style={{ direction: "ltr" }}
-          >
+          <ScrollReveal delay={0.1} x={reverse ? -40 : 40} duration={0.8} style={{ direction: "ltr" }}>
             <div className="flex items-center gap-3 mb-4">
               <span
                 className="font-numeric text-xs font-semibold opacity-50"
@@ -219,7 +198,7 @@ function ProjectShowcase({
                 <ArrowRight size={14} />
               </span>
             </div>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </Link>
     </div>
