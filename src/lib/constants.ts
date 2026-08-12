@@ -24,22 +24,22 @@ export const navItems = [
 export const socialLinks = [
   {
     label: "GitHub",
-    href: "https://github.com/sundramgupta",
+    href: "https://github.com/sundramdotdev",
     icon: "github",
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/sundramgupta",
+    href: "https://linkedin.com/in/sundramdotdev",
     icon: "linkedin",
   },
   {
     label: "X",
-    href: "https://x.com/sundramdotdev",
+    href: "https://x.com/sundramdevv",
     icon: "twitter",
   },
   {
     label: "Instagram",
-    href: "https://instagram.com/sundramdotdev",
+    href: "https://instagram.com/sundramdev_",
     icon: "instagram",
   },
   {
