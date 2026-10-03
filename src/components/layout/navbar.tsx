@@ -9,6 +9,18 @@ import { Logo } from "@/components/brand/logo";
 import { navItems } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
+const homeSectionMap: Record<string, string> = {
+  "/about": "about",
+  "/projects": "products",
+  "/client-work": "clients",
+  "/certificates": "certificates",
+  "/blog": "blog",
+  "/contact": "contact",
+  "/faq": "faq",
+  "/#faq": "faq",
+  "#faq": "faq",
+};
+
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -24,8 +36,31 @@ export function Navbar() {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setIsMobileOpen(false);
+    const id = requestAnimationFrame(() => setIsMobileOpen(false));
+    return () => cancelAnimationFrame(id);
   }, [pathname]);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (pathname === "/") {
+      const sectionId = homeSectionMap[href];
+      if (sectionId) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          e.preventDefault();
+          const navHeight = 72;
+          const targetY = Math.max(0, el.offsetTop - navHeight);
+          window.scrollTo({
+            top: targetY,
+            behavior: "smooth",
+          });
+          setIsMobileOpen(false);
+        }
+      }
+    }
+  };
 
   return (
     <>
@@ -52,13 +87,15 @@ export function Navbar() {
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
-                ((item.href as string) !== "/" && pathname.startsWith(item.href));
+                ((item.href as string) !== "/" &&
+                  pathname.startsWith(item.href));
 
               return (
                 <li key={item.href} role="none">
                   <Link
                     href={item.href}
                     role="menuitem"
+                    onClick={(e) => handleNavClick(e, item.href)}
                     className={cn(
                       "relative px-4 py-2 text-[0.9375rem] font-medium transition-colors duration-200",
                       isActive
@@ -67,7 +104,7 @@ export function Navbar() {
                     )}
                   >
                     {item.label}
-                    {isActive && (
+                    {isActive && pathname !== "/" && (
                       <motion.span
                         layoutId="nav-underline"
                         className="absolute bottom-0 left-4 right-4 h-[2px] bg-accent-bronze rounded-full"
@@ -87,7 +124,8 @@ export function Navbar() {
           {/* Desktop CTA */}
           <Link
             href="/contact"
-            className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 text-[0.9375rem] font-semibold text-bg-primary bg-accent-bronze rounded-[18px] hover:bg-accent-bronze-hover transition-all duration-200 hover:-translate-y-0.5"
+            onClick={(e) => handleNavClick(e, "/contact")}
+            className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 text-[0.9375rem] font-semibold text-bg-primary bg-accent-bronze rounded-[18px] hover:bg-accent-bronze-hover transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
           >
             Let&apos;s Talk
           </Link>
@@ -127,7 +165,8 @@ export function Navbar() {
                 {navItems.map((item, index) => {
                   const isActive =
                     pathname === item.href ||
-                    ((item.href as string) !== "/" && pathname.startsWith(item.href));
+                    ((item.href as string) !== "/" &&
+                      pathname.startsWith(item.href));
 
                   return (
                     <motion.li
@@ -142,16 +181,16 @@ export function Navbar() {
                     >
                       <Link
                         href={item.href}
-                        onClick={() => setIsMobileOpen(false)}
+                        onClick={(e) => handleNavClick(e, item.href)}
                         className={cn(
                           "block px-4 py-4 text-xl font-medium rounded-[14px] transition-colors",
-                          isActive
+                          isActive && pathname !== "/"
                             ? "text-text-primary bg-bg-elevated"
                             : "text-text-secondary hover:text-text-primary hover:bg-bg-surface"
                         )}
                       >
                         {item.label}
-                        {isActive && (
+                        {isActive && pathname !== "/" && (
                           <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent-bronze ml-3 mb-0.5" />
                         )}
                       </Link>
@@ -168,7 +207,7 @@ export function Navbar() {
               >
                 <Link
                   href="/contact"
-                  onClick={() => setIsMobileOpen(false)}
+                  onClick={(e) => handleNavClick(e, "/contact")}
                   className="flex items-center justify-center w-full px-6 py-4 text-base font-semibold text-bg-primary bg-accent-bronze rounded-[18px] hover:bg-accent-bronze-hover transition-colors"
                 >
                   Work With Me

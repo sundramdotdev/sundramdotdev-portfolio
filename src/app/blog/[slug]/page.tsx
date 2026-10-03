@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Clock, Calendar, Share2 } from "lucide-react";
+import { ArrowLeft, Clock, Calendar } from "lucide-react";
 
 function XIcon({ size = 14 }: { size?: number }) {
   return (
@@ -147,9 +147,28 @@ export default async function BlogPostPage({
     .join("\n");
 
   return (
-    <>
+    <div key="blog-detail-root" className="contents">
+      {/* Breadcrumbs structured data */}
+      <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+              { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.url}/blog` },
+              { "@type": "ListItem", position: 3, name: post.title, item: `${siteConfig.url}/blog/${slug}` },
+            ],
+          }),
+        }}
+      />
       {/* Article structured data */}
       <script
+        key="article-schema"
+        id="article-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -158,8 +177,19 @@ export default async function BlogPostPage({
             headline: post.title,
             description: post.description,
             datePublished: post.date,
-            author: { "@type": "Person", name: siteConfig.name, url: siteConfig.url },
-            publisher: { "@type": "Person", name: siteConfig.name },
+            dateModified: post.date,
+            author: {
+              "@type": "Person",
+              "@id": `${siteConfig.url}/#person`,
+              name: siteConfig.name,
+              url: siteConfig.url,
+            },
+            publisher: {
+              "@type": "Person",
+              "@id": `${siteConfig.url}/#person`,
+              name: siteConfig.name,
+              url: siteConfig.url,
+            },
             mainEntityOfPage: `${siteConfig.url}/blog/${slug}`,
             keywords: post.tags.join(", "),
           }),
@@ -242,6 +272,6 @@ export default async function BlogPostPage({
           </div>
         </div>
       </Section>
-    </>
+    </div>
   );
 }

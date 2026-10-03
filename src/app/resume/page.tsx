@@ -12,7 +12,23 @@ export const metadata: Metadata = {
 
 export default function ResumePage() {
   return (
-    <Section>
+    <div key="resume-page-root" className="contents">
+      <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+              { "@type": "ListItem", position: 2, name: "Resume", item: `${siteConfig.url}/resume` },
+            ],
+          }),
+        }}
+      />
+      <Section>
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start justify-between gap-6 mb-16">
@@ -29,7 +45,7 @@ export default function ResumePage() {
                 <Mail size={14} /> {siteConfig.email}
               </a>
               <a href={siteConfig.url} className="flex items-center gap-2 hover:text-accent-bronze transition-colors">
-                <Globe size={14} /> sundram.dev
+                <Globe size={14} /> sundramdotdev.xyz
               </a>
             </div>
           </div>
@@ -124,5 +140,6 @@ export default function ResumePage() {
         </div>
       </div>
     </Section>
+    </div>
   );
 }

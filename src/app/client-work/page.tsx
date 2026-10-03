@@ -36,7 +36,23 @@ const clientProjects = [
 
 export default function ClientWorkPage() {
   return (
-    <Section>
+    <div key="client-work-root" className="contents">
+      <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+              { "@type": "ListItem", position: 2, name: "Client Work", item: `${siteConfig.url}/client-work` },
+            ],
+          }),
+        }}
+      />
+      <Section>
       <SectionHeader
         label="Client Work"
         title="Case Studies"
@@ -84,5 +100,6 @@ export default function ClientWorkPage() {
         ))}
       </div>
     </Section>
+    </div>
   );
 }

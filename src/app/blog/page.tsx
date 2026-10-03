@@ -23,7 +23,23 @@ const blogPosts = [
 
 export default function BlogPage() {
   return (
-    <Section>
+    <div key="blog-page-root" className="contents">
+      <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+              { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.url}/blog` },
+            ],
+          }),
+        }}
+      />
+      <Section>
       <SectionHeader
         label="Blog"
         title="Articles & Insights"
@@ -66,5 +82,6 @@ export default function BlogPage() {
         ))}
       </div>
     </Section>
+    </div>
   );
 }

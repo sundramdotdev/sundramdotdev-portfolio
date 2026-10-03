@@ -13,7 +13,43 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <Section>
+    <div key="contact-page-root" className="contents">
+      <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+              { "@type": "ListItem", position: 2, name: "Contact", item: `${siteConfig.url}/contact` },
+            ],
+          }),
+        }}
+      />
+      <script
+        key="contact-schema"
+        id="contact-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            name: `Contact ${siteConfig.name}`,
+            description: "Get in touch with Sundram Gupta for product engineering, mobile app development, or inquiries.",
+            url: `${siteConfig.url}/contact`,
+            mainEntity: {
+              "@type": "Person",
+              "@id": `${siteConfig.url}/#person`,
+              name: siteConfig.name,
+              email: siteConfig.email,
+            },
+          }),
+        }}
+      />
+      <Section>
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
         {/* Left Column — Info */}
         <div className="lg:col-span-2">
@@ -85,5 +121,6 @@ export default function ContactPage() {
         </div>
       </div>
     </Section>
+    </div>
   );
 }

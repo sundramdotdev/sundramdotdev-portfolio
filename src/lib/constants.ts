@@ -2,21 +2,21 @@
 export const siteConfig = {
   name: "Sundram Gupta",
   brand: "sundramdotdev",
-  title: "sundramdotdev — Product Engineering & Software Studio",
+  title: "Sundram Gupta — Software Engineer & Product Builder | sundramdotdev",
   description:
-    "We build production-ready mobile apps, business software, and scalable digital products for startups, businesses, and ambitious founders.",
-  url: "https://sundram.dev",
-  ogImage: "https://sundram.dev/og-image.png",
+    "Sundram Gupta (sundramdotdev) is a Software Engineer and Product Builder specializing in Flutter, mobile app development, React, TypeScript, Firebase, and scalable digital products.",
+  url: "https://sundramdotdev.xyz",
+  ogImage: "https://sundramdotdev.xyz/og-image.png",
   email: "sundram.devv@gmail.com",
   location: "India",
-  role: "Product Engineer & Software Builder",
+  role: "Software Engineer & Product Builder",
   resumeUrl: "/resume/sundram-gupta-resume.pdf",
 } as const;
 
 export const navItems = [
   { label: "About", href: "/about" },
-  { label: "Products", href: "/projects" },
-  { label: "Client Work", href: "/client-work" },
+  { label: "Work", href: "/projects" },
+  { label: "Certificates", href: "/certificates" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ] as const;
@@ -39,7 +39,7 @@ export const socialLinks = [
   },
   {
     label: "Instagram",
-    href: "https://instagram.com/sundramdev_",
+    href: "https://www.instagram.com/devsundram_/",
     icon: "instagram",
   },
   {
@@ -145,20 +145,23 @@ export const blogCategories = [
 ] as const;
 
 export const keywords = [
+  "Sundram Gupta",
+  "sundramdotdev",
+  "Software Engineer",
+  "Product Engineer",
+  "Flutter Developer",
+  "Mobile App Developer",
+  "Web Developer",
+  "Full-Stack Developer",
+  "React Developer",
+  "TypeScript Developer",
+  "Firebase Developer",
+  "PostgreSQL Developer",
+  "Cross-platform App Developer",
+  "Software Product Builder",
   "Mobile App Developer India",
-  "Flutter Developer India",
-  "Flutter Freelancer",
-  "App Developer India",
-  "Freelance App Developer",
   "Flutter App Development",
-  "Business Software Developer",
-  "Mobile App Development Services",
-  "SaaS Developer India",
-  "Custom App Development",
-  "Startup App Developer",
   "Inventory Management Software",
-  "School Management Software",
-  "Expense Tracker App",
-  "Product Engineering",
-  "Software Studio India",
+  "RetailOS",
+  "SpendWise",
 ] as const;

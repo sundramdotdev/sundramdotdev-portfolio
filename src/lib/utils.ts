@@ -55,7 +55,7 @@ export function truncate(str: string, length: number): string {
  * Get absolute URL from a path
  */
 export function absoluteUrl(path: string): string {
-  return `${process.env.NEXT_PUBLIC_SITE_URL || "https://sundram.dev"}${path}`;
+  return `${process.env.NEXT_PUBLIC_SITE_URL || "https://sundramdotdev.xyz"}${path}`;
 }
 
 /**

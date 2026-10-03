@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://sundram.dev";
+  const baseUrl = siteConfig.url;
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

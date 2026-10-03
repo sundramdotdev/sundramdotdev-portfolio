@@ -1,7 +1,25 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/feed",
+        destination: "/feed.xml",
+        permanent: true,
+      },
+      {
+        source: "/rss",
+        destination: "/feed.xml",
+        permanent: true,
+      },
+      {
+        source: "/rss.xml",
+        destination: "/feed.xml",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

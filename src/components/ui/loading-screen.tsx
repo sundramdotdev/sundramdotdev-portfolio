@@ -42,7 +42,7 @@ export function LoadingScreen() {
             transition={{ duration: 0.4 }}
             className="absolute inset-0"
             style={{
-              backgroundImage: "radial-gradient(#C18A42 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(#C9C7BE 1px, transparent 1px)",
               backgroundSize: "40px 40px",
             }}
           />
@@ -86,11 +86,11 @@ export function LoadingScreen() {
                 ) : (
                   <div
                     className="flex items-center justify-center w-full h-full rounded-xl"
-                    style={{ backgroundColor: "#C18A42" }}
+                    style={{ backgroundColor: "#C9C7BE" }}
                   >
                     <span
                       className="text-lg md:text-2xl font-bold"
-                      style={{ color: "#0D0D0F" }}
+                      style={{ color: "#0B0C0E" }}
                     >
                       SD
                     </span>

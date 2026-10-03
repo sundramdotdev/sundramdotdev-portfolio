@@ -118,8 +118,10 @@ export default async function ProjectPage({
   ];
 
   return (
-    <>
+    <div key="project-detail-root" className="contents">
       <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -130,6 +132,31 @@ export default async function ProjectPage({
               { "@type": "ListItem", position: 2, name: "Projects", item: `${siteConfig.url}/projects` },
               { "@type": "ListItem", position: 3, name: project.title, item: `${siteConfig.url}/projects/${slug}` },
             ],
+          }),
+        }}
+      />
+      <script
+        key="software-schema"
+        id="software-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: project.title,
+            description: project.description,
+            applicationCategory:
+              project.category === "Mobile Apps"
+                ? "MobileApplication"
+                : "BusinessApplication",
+            operatingSystem: "Cross-platform (iOS, Android, Web)",
+            author: {
+              "@type": "Person",
+              "@id": `${siteConfig.url}/#person`,
+              name: siteConfig.name,
+              url: siteConfig.url,
+            },
+            url: `${siteConfig.url}/projects/${slug}`,
           }),
         }}
       />
@@ -183,6 +210,6 @@ export default async function ProjectPage({
           ))}
         </div>
       </Section>
-    </>
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { useInView } from "@/hooks/use-in-view";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Award, ExternalLink } from "lucide-react";
+import { Award } from "lucide-react";
 
 const certificates = [
   {

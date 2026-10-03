@@ -5,7 +5,6 @@ import { useInView } from "@/hooks/use-in-view";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
 import { processSteps } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
 export function ProcessSection() {
   const [ref, isInView] = useInView<HTMLDivElement>();

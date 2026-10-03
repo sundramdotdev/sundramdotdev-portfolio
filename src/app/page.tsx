@@ -1,62 +1,70 @@
-import { HeroSection } from "@/features/home/hero-section";
-import { TrustSection } from "@/features/home/trust-section";
-import { FeaturedProjectsSection } from "@/features/home/featured-projects-section";
-import { ClientWorkSection } from "@/features/home/client-work-section";
-import { MeetSection } from "@/features/home/meet-section";
-import { BlogSection } from "@/features/home/blog-section";
-import { ContactCtaSection } from "@/features/home/contact-cta-section";
+import { CinematicPortfolio } from "@/features/3d/cinematic-portfolio";
 import { siteConfig } from "@/lib/constants";
+import { faqItems } from "@/features/seo/faq-data";
 
 export default function HomePage() {
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${siteConfig.url}/#service`,
+    name: `${siteConfig.name} — ${siteConfig.brand}`,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    provider: {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    serviceType: [
+      "Mobile App Development",
+      "Flutter Development",
+      "MVP Development",
+      "Business Software Development",
+      "Full-Stack Web Development",
+      "SaaS Product Development",
+    ],
+    areaServed: "Worldwide",
+    priceRange: "$$",
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
-    <>
+    <div key="homepage-root" className="contents">
       {/* JSON-LD: ProfessionalService */}
       <script
+        key="jsonld-service"
+        id="jsonld-service"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
-            name: siteConfig.brand,
-            url: siteConfig.url,
-            description: siteConfig.description,
-            provider: {
-              "@type": "Person",
-              name: siteConfig.name,
-            },
-            serviceType: [
-              "Mobile App Development",
-              "Flutter Development",
-              "MVP Development",
-              "Business Software Development",
-              "SaaS Product Development",
-            ],
-            areaServed: "Worldwide",
-            priceRange: "$$",
-          }),
+          __html: JSON.stringify(serviceSchema),
         }}
       />
 
-      {/* 1. Vision — Hero */}
-      <HeroSection />
+      {/* JSON-LD: FAQPage */}
+      <script
+        key="jsonld-faq"
+        id="jsonld-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
+        }}
+      />
 
-      {/* 2. Live Metrics */}
-      <TrustSection />
-
-      {/* 3. Featured Products — Apple-style storytelling */}
-      <FeaturedProjectsSection />
-
-      {/* 4. Client Success */}
-      <ClientWorkSection />
-
-      {/* 5. Meet Sundram — Trust before personality */}
-      <MeetSection />
-
-      {/* 6. Blog */}
-      <BlogSection />
-
-      {/* 7. Contact CTA */}
-      <ContactCtaSection />
-    </>
+      {/* Cinematic Interactive 3D Portfolio Journey */}
+      <CinematicPortfolio key="cinematic-portfolio" />
+    </div>
   );
 }

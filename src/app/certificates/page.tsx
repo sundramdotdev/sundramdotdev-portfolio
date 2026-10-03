@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Award, ExternalLink, Search } from "lucide-react";
+import { Award } from "lucide-react";
 import { siteConfig } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -21,7 +21,48 @@ const certificates = [
 
 export default function CertificatesPage() {
   return (
-    <Section>
+    <div key="certificates-page-root" className="contents">
+      <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+              { "@type": "ListItem", position: 2, name: "Certificates", item: `${siteConfig.url}/certificates` },
+            ],
+          }),
+        }}
+      />
+      <script
+        key="itemlist-schema"
+        id="itemlist-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Certifications earned by Sundram Gupta",
+            itemListElement: certificates.map((cert, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              item: {
+                "@type": "EducationalOccupationalCredential",
+                name: cert.title,
+                credentialCategory: "Certificate",
+                recognizedBy: {
+                  "@type": "Organization",
+                  name: cert.issuer,
+                },
+              },
+            })),
+          }),
+        }}
+      />
+      <Section>
       <SectionHeader
         label="Certificates"
         title="Certifications & Courses"
@@ -63,5 +104,6 @@ export default function CertificatesPage() {
         ))}
       </div>
     </Section>
+    </div>
   );
 }

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og-image.png`],
-    creator: "@sundramdotdev",
+    creator: "@sundramdevv",
   },
   alternates: {
     canonical: siteConfig.url,
@@ -67,6 +67,76 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLdGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      name: siteConfig.name,
+      alternateName: ["sundramdotdev", "Sundram"],
+      url: siteConfig.url,
+      image: `${siteConfig.url}/og-image.png`,
+      jobTitle: "Software Engineer & Product Builder",
+      description: siteConfig.description,
+      sameAs: [
+        "https://github.com/sundramdotdev",
+        "https://linkedin.com/in/sundramdotdev",
+        "https://www.instagram.com/devsundram_/",
+        "https://x.com/sundramdevv",
+        "https://youtube.com/@sundramdotdev",
+      ],
+      knowsAbout: [
+        "Software Engineering",
+        "Product Engineering",
+        "Flutter",
+        "Mobile App Development",
+        "Dart",
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Next.js",
+        "Firebase",
+        "PostgreSQL",
+        "SQLite",
+        "Cross-platform App Development",
+        "Full-Stack Development",
+      ],
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "IN",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      url: siteConfig.url,
+      name: siteConfig.brand,
+      headline: siteConfig.title,
+      description: siteConfig.description,
+      publisher: {
+        "@id": `${siteConfig.url}/#person`,
+      },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${siteConfig.url}/#profile`,
+      url: siteConfig.url,
+      name: `${siteConfig.name} (${siteConfig.brand}) — Profile`,
+      isPartOf: {
+        "@id": `${siteConfig.url}/#website`,
+      },
+      about: {
+        "@id": `${siteConfig.url}/#person`,
+      },
+      mainEntity: {
+        "@id": `${siteConfig.url}/#person`,
+      },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -78,46 +148,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <head>
-        {/* Person structured data */}
+        {/* Unified Schema.org Graph */}
         <script
+          id="schema-graph"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: siteConfig.name,
-              url: siteConfig.url,
-              jobTitle: "Product Engineer & Software Builder",
-              knowsAbout: [
-                "Flutter",
-                "Mobile App Development",
-                "SaaS Development",
-                "Business Software",
-                "Product Engineering",
-              ],
-              sameAs: [
-                "https://github.com/sundramgupta",
-                "https://linkedin.com/in/sundramgupta",
-                "https://x.com/sundramdotdev",
-              ],
-            }),
-          }}
-        />
-        {/* WebSite structured data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: siteConfig.brand,
-              url: siteConfig.url,
-              description: siteConfig.description,
-              author: {
-                "@type": "Person",
-                name: siteConfig.name,
-              },
-            }),
+            __html: JSON.stringify(jsonLdGraph),
           }}
         />
       </head>
@@ -126,7 +162,7 @@ export default function RootLayout({
           <LoadingScreen />
           <ScrollProgress />
           <Navbar />
-          <main className="flex-1" style={{ paddingTop: "var(--nav-height)" }}>
+          <main className="flex-1 relative z-10" style={{ paddingTop: "var(--nav-height)" }}>
             {children}
           </main>
           <Footer />

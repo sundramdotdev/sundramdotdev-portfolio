@@ -8,14 +8,17 @@ type CursorVariant = "default" | "button" | "image" | "link" | "hidden";
 export function CustomCursor() {
   const [variant, setVariant] = useState<CursorVariant>("default");
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null); // Start as null to avoid hydrating heavy elements on mobile
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean | null>(null);
 
   useEffect(() => {
     // Detect touch devices
     const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     
-    setIsTouchDevice(isTouch || prefersReducedMotion);
+    const id = requestAnimationFrame(() => {
+      setIsTouchDevice(isTouch || prefersReducedMotion);
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
 
   const cursorX = useMotionValue(0);
@@ -31,7 +34,6 @@ export function CustomCursor() {
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      // Don't update if document is hidden to save CPU
       if (document.hidden) return;
       
       cursorX.set(e.clientX);
@@ -44,41 +46,9 @@ export function CustomCursor() {
   const handleMouseLeave = useCallback(() => setIsVisible(false), []);
   const handleMouseEnter = useCallback(() => setIsVisible(true), []);
 
-  useEffect(() => {
-    if (isTouchDevice === null || isTouchDevice) return;
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    document.addEventListener("mouseleave", handleMouseLeave, { passive: true });
-    document.addEventListener("mouseenter", handleMouseEnter, { passive: true });
-
-    // Observe interactive elements for variant changes
-    let timeoutId: NodeJS.Timeout;
-    const observer = new MutationObserver(() => {
-      // Debounce listener setup to avoid excessive DOM queries
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(setupHoverListeners, 100);
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    setupHoverListeners();
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mouseenter", handleMouseEnter);
-      observer.disconnect();
-      clearTimeout(timeoutId);
-    };
-  }, [isTouchDevice, handleMouseMove, handleMouseLeave, handleMouseEnter]);
-
-  function setupHoverListeners() {
+  const setupHoverListeners = useCallback(() => {
     // Buttons
     document.querySelectorAll("button, .btn-primary, .btn-secondary").forEach((el) => {
-      // Remove old listeners to prevent duplicates
       el.removeEventListener("mouseenter", () => setVariant("button"));
       el.removeEventListener("mouseleave", () => setVariant("default"));
       
@@ -112,7 +82,37 @@ export function CustomCursor() {
       el.addEventListener("mouseenter", () => setVariant("hidden"), { passive: true });
       el.addEventListener("mouseleave", () => setVariant("default"), { passive: true });
     });
-  }
+  }, []);
+
+  useEffect(() => {
+    if (isTouchDevice === null || isTouchDevice) return;
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    document.addEventListener("mouseenter", handleMouseEnter, { passive: true });
+
+    // Observe interactive elements for variant changes
+    let timeoutId: NodeJS.Timeout;
+    const observer = new MutationObserver(() => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(setupHoverListeners, 100);
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    setupHoverListeners();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseenter", handleMouseEnter);
+      observer.disconnect();
+      clearTimeout(timeoutId);
+    };
+  }, [isTouchDevice, handleMouseMove, handleMouseLeave, handleMouseEnter, setupHoverListeners]);
 
   // If still checking or is touch device, do not render heavy motion components
   if (isTouchDevice === null || isTouchDevice) return null;

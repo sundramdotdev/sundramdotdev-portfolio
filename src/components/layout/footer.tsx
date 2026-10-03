@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/logo";
-import { navItems, socialLinks, siteConfig } from "@/lib/constants";
+import { socialLinks, siteConfig } from "@/lib/constants";
 import { ArrowUpRight } from "lucide-react";
 
 // Simple inline SVG social icons
@@ -57,6 +57,7 @@ const footerLinks = [
   { label: "Products", href: "/projects" },
   { label: "Client Work", href: "/client-work" },
   { label: "Blog", href: "/blog" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Resume", href: "/resume" },
   { label: "Contact", href: "/contact" },
 ];
@@ -69,7 +70,7 @@ const legalLinks = [
 export function Footer() {
   return (
     <footer
-      className="border-t border-border-subtle bg-bg-primary"
+      className="relative z-10 border-t border-border-subtle bg-bg-primary pointer-events-auto"
       role="contentinfo"
     >
       <div className="mx-auto max-w-[var(--content-max-width)] px-6 md:px-10 lg:px-16">

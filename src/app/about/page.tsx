@@ -17,8 +17,10 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <>
+    <div key="about-page-root" className="contents">
       <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -36,6 +38,6 @@ export default function AboutPage() {
       <TimelineSection />
       <ValuesSection />
       <SkillsSection />
-    </>
+    </div>
   );
 }

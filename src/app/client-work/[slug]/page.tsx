@@ -88,14 +88,56 @@ export default async function ClientWorkDetailPage({
   if (!project) notFound();
 
   return (
-    <Section>
-      <Link
-        href="/#client-work"
-        className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors mb-8"
-      >
-        <ArrowLeft size={14} />
-        Back to Home
-      </Link>
+    <div key="client-work-detail-root" className="contents">
+      <script
+        key="breadcrumb-schema"
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+              { "@type": "ListItem", position: 2, name: "Client Work", item: `${siteConfig.url}/client-work` },
+              { "@type": "ListItem", position: 3, name: project.title, item: `${siteConfig.url}/client-work/${slug}` },
+            ],
+          }),
+        }}
+      />
+      <script
+        key="article-schema"
+        id="article-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: project.title,
+            description: project.description,
+            author: {
+              "@type": "Person",
+              "@id": `${siteConfig.url}/#person`,
+              name: siteConfig.name,
+              url: siteConfig.url,
+            },
+            publisher: {
+              "@type": "Person",
+              "@id": `${siteConfig.url}/#person`,
+              name: siteConfig.name,
+            },
+            mainEntityOfPage: `${siteConfig.url}/client-work/${slug}`,
+          }),
+        }}
+      />
+      <Section>
+        <Link
+          href="/client-work"
+          className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors mb-8"
+        >
+          <ArrowLeft size={14} />
+          All Client Work
+        </Link>
 
       <div className="mb-12">
         <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -169,5 +211,6 @@ export default async function ClientWorkDetailPage({
         </div>
       </div>
     </Section>
+    </div>
   );
 }

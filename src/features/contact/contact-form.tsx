@@ -58,9 +58,9 @@ export function ContactForm() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="flex flex-col items-center justify-center p-12 rounded-[18px] border border-[#C18A42]/20 bg-[#C18A42]/5 text-center"
+        className="flex flex-col items-center justify-center p-12 rounded-[18px] border border-[#C9C7BE]/20 bg-[#C9C7BE]/5 text-center"
       >
-        <CheckCircle size={48} className="text-[#C18A42] mb-6" />
+        <CheckCircle size={48} className="text-[#C9C7BE] mb-6" />
         <h3 className="text-xl font-heading font-semibold text-text-primary mb-3">
           Message received.
         </h3>
@@ -69,7 +69,7 @@ export function ContactForm() {
         </p>
         <button
           onClick={() => setFormState("idle")}
-          className="mt-8 text-sm font-semibold text-[#C18A42] hover:text-[#C18A42]/80 transition-colors"
+          className="mt-8 text-sm font-semibold text-[#C9C7BE] hover:text-[#C9C7BE]/80 transition-colors"
         >
           Send another message
         </button>
@@ -82,7 +82,7 @@ export function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-[0.1em] text-text-primary mb-2.5">
-            Full Name <span className="text-[#C18A42]">*</span>
+            Full Name <span className="text-[#C9C7BE]">*</span>
           </label>
           <input
             type="text"
@@ -91,13 +91,13 @@ export function ContactForm() {
             required
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C18A42] focus:border-[#C18A42] transition-all min-h-[44px]"
+            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C9C7BE] focus:border-[#C9C7BE] transition-all min-h-[44px]"
             placeholder="John Doe"
           />
         </div>
         <div>
           <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-[0.1em] text-text-primary mb-2.5">
-            Email Address <span className="text-[#C18A42]">*</span>
+            Email Address <span className="text-[#C9C7BE]">*</span>
           </label>
           <input
             type="email"
@@ -106,7 +106,7 @@ export function ContactForm() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C18A42] focus:border-[#C18A42] transition-all min-h-[44px]"
+            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C9C7BE] focus:border-[#C9C7BE] transition-all min-h-[44px]"
             placeholder="john@example.com"
           />
         </div>
@@ -123,7 +123,7 @@ export function ContactForm() {
             name="company"
             value={formData.company}
             onChange={handleChange}
-            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C18A42] focus:border-[#C18A42] transition-all min-h-[44px]"
+            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C9C7BE] focus:border-[#C9C7BE] transition-all min-h-[44px]"
             placeholder="Acme Corp"
           />
         </div>
@@ -137,7 +137,7 @@ export function ContactForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C18A42] focus:border-[#C18A42] transition-all min-h-[44px]"
+            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C9C7BE] focus:border-[#C9C7BE] transition-all min-h-[44px]"
             placeholder="+1 (555) 000-0000"
           />
         </div>
@@ -145,7 +145,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="projectType" className="block text-xs font-semibold uppercase tracking-[0.1em] text-text-primary mb-2.5">
-          Project Type <span className="text-[#C18A42]">*</span>
+          Project Type <span className="text-[#C9C7BE]">*</span>
         </label>
         <div className="relative">
           <select
@@ -154,7 +154,7 @@ export function ContactForm() {
             required
             value={formData.projectType}
             onChange={handleChange}
-            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary focus:outline-none focus:ring-1 focus:ring-[#C18A42] focus:border-[#C18A42] transition-all appearance-none min-h-[44px]"
+            className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary focus:outline-none focus:ring-1 focus:ring-[#C9C7BE] focus:border-[#C9C7BE] transition-all appearance-none min-h-[44px]"
           >
             <option value="">Select type</option>
             <option value="Mobile App">Mobile App</option>
@@ -173,7 +173,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-[0.1em] text-text-primary mb-2.5">
-          Project Description <span className="text-[#C18A42]">*</span>
+          Project Description <span className="text-[#C9C7BE]">*</span>
         </label>
         <textarea
           id="message"
@@ -182,7 +182,7 @@ export function ContactForm() {
           rows={6}
           value={formData.message}
           onChange={handleChange}
-          className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C18A42] focus:border-[#C18A42] transition-all resize-none min-h-[44px]"
+          className="w-full px-5 py-4 text-sm rounded-[14px] bg-bg-surface border border-border-subtle text-text-primary placeholder:text-text-faint focus:outline-none focus:ring-1 focus:ring-[#C9C7BE] focus:border-[#C9C7BE] transition-all resize-none min-h-[44px]"
           placeholder="Tell me what you're building, what problem you're trying to solve, and what you'd like help with."
         />
       </div>
@@ -204,8 +204,8 @@ export function ContactForm() {
         className={cn(
           "w-full sm:w-auto inline-flex justify-center items-center gap-3 px-8 py-4 text-sm font-semibold rounded-[16px] transition-all duration-300 min-h-[44px]",
           formState === "submitting"
-            ? "bg-[#C18A42]/50 text-bg-primary cursor-not-allowed"
-            : "bg-[#C18A42] text-bg-primary hover:bg-[#C18A42]/90 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#C18A42]/10"
+            ? "bg-[#C9C7BE]/50 text-bg-primary cursor-not-allowed"
+            : "bg-[#C9C7BE] text-bg-primary hover:bg-[#C9C7BE]/90 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#C9C7BE]/10"
         )}
       >
         {formState === "submitting" ? (

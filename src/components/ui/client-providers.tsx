@@ -18,14 +18,14 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <>
-      {mounted && (
-        <>
+    <div key="client-providers-root" className="contents">
+      {mounted ? (
+        <span key="client-providers-effects" className="contents">
           <LenisProvider>{null}</LenisProvider>
           <CustomCursor />
-        </>
-      )}
+        </span>
+      ) : null}
       {children}
-    </>
+    </div>
   );
 }
