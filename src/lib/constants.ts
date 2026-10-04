@@ -2,14 +2,19 @@
 export const siteConfig = {
   name: "Sundram Gupta",
   brand: "sundramdotdev",
-  title: "Sundram Gupta — Software Engineer & Product Builder | sundramdotdev",
+  title: "Sundram Gupta — Software Developer & Product Builder | sundramdotdev",
   description:
-    "Sundram Gupta (sundramdotdev) is a Software Engineer and Product Builder specializing in Flutter, mobile app development, React, TypeScript, Firebase, and scalable digital products.",
+    "Sundram Gupta (sundramdotdev) is a Software Developer and Product Builder specializing in Flutter, mobile app development, React, TypeScript, Firebase, and scalable digital products.",
   url: "https://sundramdotdev.xyz",
   ogImage: "https://sundramdotdev.xyz/og-image.png",
   email: "sundram.devv@gmail.com",
-  location: "India",
-  role: "Software Engineer & Product Builder",
+  location: "Ayodhya, Uttar Pradesh, India",
+  academic: "Shri Ramswaroop Memorial University (SRMU)",
+  githubUrl: "https://github.com/sundramdotdev",
+  linkedinUrl: "https://linkedin.com/in/sundaramdotdev/",
+  commudleUrl: "https://www.commudle.com/users/sundramdotdev",
+  instagramUrl: "https://www.instagram.com/devsundram_/",
+  role: "Software Developer & Product Builder",
   resumeUrl: "/resume/sundram-gupta-resume.pdf",
 } as const;
 
@@ -29,8 +34,13 @@ export const socialLinks = [
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/sundramdotdev",
+    href: "https://linkedin.com/in/sundaramdotdev/",
     icon: "linkedin",
+  },
+  {
+    label: "Commudle",
+    href: "https://www.commudle.com/users/sundramdotdev",
+    icon: "commudle",
   },
   {
     label: "X",

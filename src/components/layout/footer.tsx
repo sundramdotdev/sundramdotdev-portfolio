@@ -44,9 +44,18 @@ function YoutubeIcon({ size = 16 }: { size?: number }) {
   );
 }
 
+function CommudleIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm-1 14.5v-9l7 4.5-7 4.5z" />
+    </svg>
+  );
+}
+
 const socialIconMap: Record<string, React.ComponentType<{ size?: number }>> = {
   github: GithubIcon,
   linkedin: LinkedinIcon,
+  commudle: CommudleIcon,
   twitter: TwitterIcon,
   instagram: InstagramIcon,
   youtube: YoutubeIcon,

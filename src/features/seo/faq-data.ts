@@ -7,28 +7,33 @@ export interface FaqItem {
 
 export const faqItems: FaqItem[] = [
   {
-    question: "Who is Sundram Gupta (sundramdotdev)?",
+    question: "Who is Sundram Gupta?",
     answer:
-      "Sundram Gupta is a Software Engineer and Product Builder based in India, known across GitHub, LinkedIn, and social platforms as sundramdotdev. He specializes in building production-ready cross-platform mobile applications, business software, and scalable digital products.",
+      "Sundram Gupta is a Software Developer and Product Builder from Ayodhya, Uttar Pradesh, India, associated with Shri Ramswaroop Memorial University (SRMU) and the regional technology ecosystem. Known online as sundramdotdev across GitHub, LinkedIn, Commudle, and Instagram, he builds production-ready mobile applications, business software, and digital products.",
   },
   {
-    question: "What core technologies and programming languages does Sundram Gupta use?",
+    question: "What is sundramdotdev?",
     answer:
-      "Sundram's primary engineering stack includes Flutter and Dart for cross-platform iOS and Android apps, React, TypeScript, and Next.js for high-performance web products, along with Firebase, PostgreSQL, SQLite, and Node.js for backend and database architectures.",
+      "sundramdotdev is the personal brand, public developer handle, and online identity used by Sundram Gupta across his portfolio website (sundramdotdev.xyz), code repositories, technical writing, community profiles, and social accounts.",
+  },
+  {
+    question: "Is Sundram Gupta a Flutter developer?",
+    answer:
+      "Yes. Sundram Gupta specializes in cross-platform mobile application development using Flutter and Dart. He has engineered production mobile apps including RetailOS (an offline-first retail inventory and billing POS system), SpendWise (personal expense analytics), and PlayMate (sports matchmaking).",
+  },
+  {
+    question: "What core technologies and frameworks does Sundram Gupta use?",
+    answer:
+      "Sundram's primary engineering stack includes Flutter and Dart for cross-platform iOS and Android apps, React, TypeScript, and Next.js for web applications, along with Firebase, PostgreSQL, SQLite, and Node.js for backend data systems.",
   },
   {
     question: "What software products has Sundram Gupta built?",
     answer:
-      "Notable products built by Sundram include RetailOS (an offline-first retail inventory and billing POS system), SpendWise (a personal expense tracker with budget analytics), PlayMate (a social sports matchmaking and venue platform), and a full-featured School Management Platform.",
+      "Notable products built by Sundram include RetailOS (offline-first retail management POS system), SpendWise (personal expense tracking app), PlayMate (sports venue booking and player discovery app), and an enterprise School Management System.",
   },
   {
-    question: "Does Sundram Gupta work on client projects and MVP development?",
+    question: "Where can I find Sundram Gupta's official developer profiles?",
     answer:
-      "Yes. Sundram works with startups, ambitious founders, and businesses on end-to-end product engineering — from rapid MVP development and cross-platform mobile apps to custom operational tools like inventory management and billing systems.",
-  },
-  {
-    question: "How can I contact or connect with Sundram Gupta?",
-    answer:
-      `You can reach Sundram Gupta directly via email at ${siteConfig.email}, explore his repositories on GitHub (github.com/sundramdotdev), connect on LinkedIn (linkedin.com/in/sundramdotdev), or submit a project inquiry through the contact page.`,
+      `You can find Sundram Gupta's official profiles on GitHub (github.com/sundramdotdev), LinkedIn (linkedin.com/in/sundaramdotdev), Commudle (commudle.com/users/sundramdotdev), Instagram (instagram.com/devsundram_), and reach him directly via email at ${siteConfig.email}.`,
   },
 ];

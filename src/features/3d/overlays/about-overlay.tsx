@@ -30,11 +30,11 @@ export function AboutOverlay() {
         </h2>
 
         <p className="mt-4 text-text-secondary text-lg sm:text-xl font-heading leading-snug">
-          Sundram Gupta is a Software Engineer and Product Builder delivering cross-platform mobile apps, business software, and scalable digital systems.
+          Sundram Gupta is a Software Developer and Product Builder delivering cross-platform mobile apps, business software, and scalable digital systems.
         </p>
 
         <p className="mt-2 text-text-faint font-mono text-xs uppercase tracking-wider">
-          Based in {siteConfig.location} • Available Worldwide
+          Based in {siteConfig.location} • {siteConfig.academic} • Available Worldwide
         </p>
 
         {/* Core Stack Pills */}
